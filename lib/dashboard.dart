@@ -1,12 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:newbmi/authentication/login.dart';
 import 'package:newbmi/functions/functions.dart';
 import 'package:newbmi/kStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:newbmi/models/bmi_model.dart';
 import 'package:newbmi/prevoius_records_screen.dart';
-
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,8 +19,6 @@ class HomePage extends StatefulWidget {
 String? dateTime1 = 'Select a Date';
 
 class _HomePageState extends State<HomePage> {
-
-
   final appFunctions = Functions();
 
   String myAge = "";
@@ -40,14 +39,23 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 85, 3, 133),
-        title: const Text(
-          "BMI CALCULATOR",
-          style: TextStyle(
-              letterSpacing: 3, fontWeight: FontWeight.bold, fontSize: 25),
-        ),
-        centerTitle: true,
-      ),
+          backgroundColor: const Color.fromARGB(255, 85, 3, 133),
+          title: const Text(
+            "BMI CALCULATOR",
+            style: TextStyle(
+                letterSpacing: 3, fontWeight: FontWeight.bold, fontSize: 25),
+          ),
+          centerTitle: true,
+          actions: [
+            TextButton(
+              onPressed: () {
+                FirebaseAuth.instance
+                    .signOut()
+                    .whenComplete(() => Get.to(() => LoginScreen()));
+              },
+              child: Text("LogOut"),
+            ),
+          ]),
       body: Container(
         padding: const EdgeInsets.all(10.0),
         color: const Color.fromARGB(255, 243, 135, 243),
@@ -322,12 +330,11 @@ class _HomePageState extends State<HomePage> {
                     child: ElevatedButton(
                       child: const Text(
                         "Submit",
-                        style: kButtonTextStyle,
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 85, 3, 133),
-                        elevation: 0,
-                      ),
+                          backgroundColor: Color.fromARGB(255, 159, 34, 231),
+                          elevation: 0,
+                          padding: EdgeInsets.all(20)),
                       onPressed: () {
                         printData();
                         setState(() {
@@ -400,24 +407,36 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 159, 34, 231),
+                          elevation: 0,
+                          padding: EdgeInsets.all(20)),
                       onPressed: clear,
                       child: const Text("Clear Text"),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: (){
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 159, 34, 231),
+                          elevation: 0,
+                          padding: EdgeInsets.all(20)),
+                      onPressed: () {
                         final bmiData = BmiData(
                             name: name,
                             address: address,
-                            age: myAge,
+                            ageText: myAge,
                             bmi: bmi,
-                            bmiComment: bmiResult(bmi));
+                            selectedGender: gender.toString(),
+                            bmiComment: bmiResult(bmi),
+                            timestamp: Timestamp.now());
                         appFunctions.addBmiData(bmiData);
                       },
                       child: const Text("Save Data"),
@@ -425,12 +444,18 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: ()=>Get.to(()=>MyRecords()),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 159, 34, 231),
+                          elevation: 0,
+                          padding: EdgeInsets.all(20)),
+                      onPressed: () => Get.to(() => MyRecords()),
                       child: const Text("My Previous Records"),
                     ),
                   ),
@@ -492,6 +517,5 @@ class _HomePageState extends State<HomePage> {
     print(myAge);
     print(bmi);
     print(bmiResult(bmi));
-
   }
 }

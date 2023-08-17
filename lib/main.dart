@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart'; // Import Firebase
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'authentication/login.dart';
-import 'authentication/welcome.dart';
-import 'authentication/register.dart';
-import 'firebase_options.dart'; // Import the dashboard page
+import 'package:newbmi/page_switcher.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:LoginScreen(), // Set the dashboard page as the main page
+      home:const PageSwitcher(), // Set the dashboard page as the main page
     );
   }
 }

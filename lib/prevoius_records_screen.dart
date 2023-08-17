@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:newbmi/dashboard.dart';
 import 'package:newbmi/models/bmi_model.dart';
+import 'package:intl/intl.dart';
 
 class MyRecords extends StatelessWidget {
   const MyRecords({super.key});
@@ -14,17 +17,24 @@ class MyRecords extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             children: [
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: ()=>Get.to(()=>HomePage()),
+                      icon: Icon(Icons.arrow_back_ios_sharp)),
+                ],
+              ),
               const Image(
                   image:
-                  AssetImage("assets/images/previous_records_image.jpg")),
+                  NetworkImage("https://static.vecteezy.com/system/resources/previews/003/792/765/non_2x/bmi-categories-chart-body-mass-index-and-scale-mass-people-severely-underweight-underweight-optimal-overweight-obese-severely-obese-graph-control-health-illustration-vector.jpg")),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 child: Row(
                   children: [
                     Text(
-                      "Your Previous BMI Records",
+                      "My Records",
                       style: TextStyle(
-                        fontSize: 35,
+                        fontSize: 50,
                         fontWeight: FontWeight.w900,
                         color: Color(0xFF385a64),
                       ),
@@ -63,14 +73,17 @@ class MyRecords extends StatelessWidget {
                           final doc = data[index];
                           final bmiData = BmiData.fromJson(
                               doc.data() as Map<String, dynamic>);
+
+                          final formattedTimestamp = bmiData.timestamp != null
+                              ? DateFormat.yMMMd()
+                              .format(bmiData.timestamp!.toDate())
+                              : 'Unknown';
+
                           return Card(
-                            color: Colors.white,
+                            color: Colors.purple.withOpacity(0.4),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
-                                side: const BorderSide(
-                                    color: Colors.black,
-                                    strokeAlign: 0,
-                                    width: 1)),
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -78,8 +91,9 @@ class MyRecords extends StatelessWidget {
                                   padding: const EdgeInsets.all(5.0),
                                   child: Row(
                                     children: [
-                                      const Icon(Icons.calendar_view_day_outlined),
+                                      const Icon(Icons.calendar_month),
                                       const SizedBox(width: 50),
+                                      Text(formattedTimestamp),
                                     ],
                                   ),
                                 ),
