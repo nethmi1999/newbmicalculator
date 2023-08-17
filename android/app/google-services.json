@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "594193926784",
+    "project_id": "newbmi-c641c",
+    "storage_bucket": "newbmi-c641c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594193926784:android:38b987aff492d67d9f3465",
+        "android_client_info": {
+          "package_name": "com.example.newbmi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594193926784-jbds3mlj3c7r4cludroamhetodadqt3i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJDYTx3ocByHg1_hobvjXonS9462SkE6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594193926784-jbds3mlj3c7r4cludroamhetodadqt3i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
