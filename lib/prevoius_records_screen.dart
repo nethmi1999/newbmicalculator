@@ -25,8 +25,9 @@ class MyRecords extends StatelessWidget {
                 ],
               ),
               const Image(
-                  image:
-                  NetworkImage("https://static.vecteezy.com/system/resources/previews/003/792/765/non_2x/bmi-categories-chart-body-mass-index-and-scale-mass-people-severely-underweight-underweight-optimal-overweight-obese-severely-obese-graph-control-health-illustration-vector.jpg")),
+                  image: AssetImage("assets/images/records.jpg"),
+                width: 250,
+              ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 child: Row(

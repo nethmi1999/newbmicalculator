@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:const PageSwitcher(), // Set the dashboard page as the main page
+      home:const PageSwitcher(),
     );
   }
 }
