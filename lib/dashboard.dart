@@ -1,6 +1,10 @@
+import 'package:get/get.dart';
+import 'package:newbmi/functions/functions.dart';
 import 'package:newbmi/kStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:newbmi/models/bmi_model.dart';
+import 'package:newbmi/prevoius_records_screen.dart';
 
 
 
@@ -14,6 +18,10 @@ class HomePage extends StatefulWidget {
 String? dateTime1 = 'Select a Date';
 
 class _HomePageState extends State<HomePage> {
+
+
+  final appFunctions = Functions();
+
   String myAge = "";
   String name = "";
   String address = "";
@@ -321,6 +329,7 @@ class _HomePageState extends State<HomePage> {
                         elevation: 0,
                       ),
                       onPressed: () {
+                        printData();
                         setState(() {
                           name = nameController.text;
                           address = addressController.text;
@@ -387,11 +396,43 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Column(
+              Row(
                 children: [
-                  ElevatedButton(
-                    onPressed: clear,
-                    child: const Text("Clear Text"),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: clear,
+                      child: const Text("Clear Text"),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20,),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: (){
+                        final bmiData = BmiData(
+                            name: name,
+                            address: address,
+                            age: myAge,
+                            bmi: bmi,
+                            bmiComment: bmiResult(bmi));
+                        appFunctions.addBmiData(bmiData);
+                      },
+                      child: const Text("Save Data"),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20,),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: ()=>Get.to(()=>MyRecords()),
+                      child: const Text("My Previous Records"),
+                    ),
                   ),
                 ],
               ),
@@ -443,5 +484,14 @@ class _HomePageState extends State<HomePage> {
   void clear() {
     nameController.clear();
     addressController.clear();
+  }
+
+  void printData() {
+    print(name);
+    print(address);
+    print(myAge);
+    print(bmi);
+    print(bmiResult(bmi));
+
   }
 }

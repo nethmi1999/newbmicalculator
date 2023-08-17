@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:newbmi/authentication/login.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -13,21 +16,34 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
-class BackgroundImageWidget extends StatelessWidget {
+class BackgroundImageWidget extends StatefulWidget {
+  @override
+  State<BackgroundImageWidget> createState() => _BackgroundImageWidgetState();
+}
+
+class _BackgroundImageWidgetState extends State<BackgroundImageWidget> {
   var email;
+
   var password;
+
   var name;
+
   var phonenumber;
 
   final GlobalKey<FormState> _fromKey = GlobalKey<FormState>();
+
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
   final nameController = TextEditingController();
+
   final phoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/welcome.jpg'),
           fit: BoxFit.cover, // Adjust this based on your needs
@@ -38,7 +54,7 @@ class BackgroundImageWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
+            const Row(
               children: [
                 Text(
                   'Register Now!',
@@ -55,7 +71,7 @@ class BackgroundImageWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Enter Your Name',
                     ),
@@ -72,7 +88,7 @@ class BackgroundImageWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Enter your Phone Number',
                     ),
@@ -89,7 +105,7 @@ class BackgroundImageWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Enter your Email',
                     ),
@@ -106,7 +122,7 @@ class BackgroundImageWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Enter your Password',
                     ),
@@ -121,28 +137,57 @@ class BackgroundImageWidget extends StatelessWidget {
             SizedBox(height: 10.0),
             Row(
               children: [
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 113, 3, 128),
-                        elevation: 0,
-                        padding: EdgeInsets.all(20)),
-                    onPressed: () {
-                      if (_fromKey.currentState!.validate()) {
-                        _fromKey.currentState!.save();
-                      }
-                    },
-                    child: Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        fontSize: 20.0, // Adjust the font size as needed
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        // Change the text color if desired
-                      ),
-                    )),
+                Expanded(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.purple.withOpacity(0.9),
+                          elevation: 0,
+                          padding: EdgeInsets.all(20)),
+                      onPressed: (){
+
+                          FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text)
+                          .whenComplete(() => Get.to(()=>LoginScreen()));
+
+                      },
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          fontSize: 20.0, // Adjust the font size as needed
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 249, 249,
+                              250), // Change the text color if desired
+                        ),
+                      )),
+                ),
               ],
             ),
-            // Add additional widgets or rows here if needed
+            const Column(
+              children: [
+                Text("OR"),
+                Text("Already Have an Account?")
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.purple.withOpacity(0.5),
+                          elevation: 0,
+                          padding: EdgeInsets.all(20)),
+                      onPressed: ()=>Get.to(()=>LoginScreen()),
+                      child: const Text(
+                        "Sign In",
+                        style: TextStyle(
+                          fontSize: 20.0, // Adjust the font size as needed
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 249, 249,
+                              250), // Change the text color if desired
+                        ),
+                      )),
+                ),
+              ],
+            ),
           ],
         ),
       ),
