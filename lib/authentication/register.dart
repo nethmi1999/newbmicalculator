@@ -82,6 +82,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     if (value!.isEmpty) {
                                       return 'Please enter your name';
                                     }
+                                    if (containsNumbers(value)) {
+                                      return 'Name should not contain numbers';
+                                    }
                                     return null;
                                   },
                                 ),
@@ -97,12 +100,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     border: OutlineInputBorder(),
                                     labelText: 'Enter your Phone Number',
                                   ),
+                                  keyboardType: TextInputType.phone,
                                   controller: phoneController,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Please enter your phone number';
                                     }
-                                    // You can add more specific phone number validation here if needed
                                     return null;
                                   },
                                 ),
@@ -230,4 +233,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  bool containsNumbers(String input) {
+    return RegExp(r'[0-9]').hasMatch(input);
+  }
+
 }

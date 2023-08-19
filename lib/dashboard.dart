@@ -109,6 +109,9 @@ class _HomePageState extends State<HomePage> {
                                 if (value!.isEmpty) {
                                   return 'Please enter your name';
                                 }
+                                if (containsNumbers(value)) {
+                                  return 'Name should not contain numbers';
+                                }
                                 return null;
                               },
                             ),
@@ -550,5 +553,9 @@ class _HomePageState extends State<HomePage> {
     print(myAge);
     print(bmi);
     print(bmiResult(bmi));
+  }
+
+  bool containsNumbers(String input) {
+    return RegExp(r'[0-9]').hasMatch(input);
   }
 }
