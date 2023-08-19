@@ -6,10 +6,13 @@ import 'package:newbmi/models/bmi_model.dart';
 import 'package:intl/intl.dart';
 
 class MyRecords extends StatelessWidget {
+
   const MyRecords({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ScrollController _scrollController = ScrollController();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -65,6 +68,7 @@ class MyRecords extends StatelessWidget {
                     final data = snapshot.data!.docs;
 
                     return Scrollbar(
+                      controller: _scrollController,
                       isAlwaysShown: true,
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
