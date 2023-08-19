@@ -76,6 +76,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Enter Your Name',
+                                    prefixIcon: Icon(Icons.person),
+
                                   ),
                                   controller: nameController,
                                   validator: (value) {
@@ -99,6 +101,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Enter your Phone Number',
+                                    prefixIcon: Icon(Icons.phone),
+
                                   ),
                                   keyboardType: TextInputType.phone,
                                   controller: phoneController,
@@ -120,6 +124,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Enter your Email',
+                                    prefixIcon: Icon(Icons.email),
+
                                   ),
                                   controller: emailController,
                                   validator: (value) {
@@ -140,9 +146,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  controller: passwordController,
                                   decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                     labelText: 'Enter your Password',
+                                    prefixIcon: Icon(Icons.fingerprint),
+
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
@@ -172,10 +181,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         FirebaseAuth.instance
                                             .createUserWithEmailAndPassword(
                                             email: emailController.text,
-                                            password: passwordController.text)
-                                            .whenComplete(() =>
-                                            Get.to(() => LoginScreen()));
+                                            password: passwordController.text);
                                       }
+                                      print("Email: ${emailController.text}");
+                                      print("Password: ${passwordController.text}");
+
 
                                     },
                                     child: const Text(

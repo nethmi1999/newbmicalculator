@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newbmi/authentication/bmi_screen.dart';
+import 'package:newbmi/authentication/forget_password.dart';
 import 'package:newbmi/authentication/register.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:newbmi/dashboard.dart';
@@ -23,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
+
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Enter your email',
+                              prefixIcon: Icon(Icons.email),
+
                             ),
                             controller: emailController,
                             validator: (value) {
@@ -69,10 +74,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           SizedBox(height: 10.0),
                           TextFormField(
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Enter your password',
+                              prefixIcon: Icon(Icons.fingerprint),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureText = !_obscureText;
+                                  });
+                                },
+                                icon: Icon(
+                                  _obscureText ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ),
+                            obscureText: _obscureText,
                             controller: passwordController,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -84,7 +102,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 15.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(onPressed: ()=>Get.to(()=>ForgetPassword()), child: Text("Forget Password?"))
+                            ],
+                          ),
                           Row(
                             children: [
                               Expanded(
@@ -134,6 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
+
                       const Column(
                         children: [Text("OR"), Text("Don't Have an Account?")],
                       ),
