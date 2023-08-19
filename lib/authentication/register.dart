@@ -1,27 +1,17 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newbmi/authentication/login.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
-
-  final GlobalKey<FormState> _fromKey = GlobalKey<FormState>();
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: BackgroundImageWidget(), // Replace this with your content
-    );
-  }
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class BackgroundImageWidget extends StatefulWidget {
-  @override
-  State<BackgroundImageWidget> createState() => _BackgroundImageWidgetState();
-}
-
-class _BackgroundImageWidgetState extends State<BackgroundImageWidget> {
+class _RegisterScreenState extends State<RegisterScreen> {
   var email;
 
   var password;
@@ -74,127 +64,162 @@ class _BackgroundImageWidgetState extends State<BackgroundImageWidget> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 25.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Enter Your Name',
-                            ),
-                            controller: nameController,
-                            onSaved: (value) {
-                              name = value;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Enter your Phone Number',
-                            ),
-                            controller: phoneController,
-                            onSaved: (value) {
-                              phonenumber = value;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Enter your Email',
-                            ),
-                            controller: emailController,
-                            onSaved: (value) {
-                              email = value;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Enter your Password',
-                            ),
-                            controller: passwordController,
-                            onSaved: (value) {
-                              password = value;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.purple.withOpacity(0.9),
-                                  elevation: 0,
-                                  padding: EdgeInsets.all(20)),
-                              onPressed: (){
-
-                                FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text)
-                                    .whenComplete(() => Get.to(()=>LoginScreen()));
-
-                              },
-                              child: const Text(
-                                "Register",
-                                style: TextStyle(
-                                  fontSize: 20.0, // Adjust the font size as needed
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 249, 249,
-                                      250), // Change the text color if desired
+                    Form(
+                      key: _fromKey,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 25.0),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Enter Your Name',
+                                  ),
+                                  controller: nameController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter your name';
+                                    }
+                                    return null;
+                                  },
                                 ),
-                              )),
-                        ),
-                      ],
-                    ),
-                    const Column(
-                      children: [
-                        Text("OR"),
-                        Text("Already Have an Account?")
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.purple.withOpacity(0.5),
-                                  elevation: 0,
-                                  padding: EdgeInsets.all(20)),
-                              onPressed: ()=>Get.to(()=>LoginScreen()),
-                              child: const Text(
-                                "Login",
-                                style: TextStyle(
-                                  fontSize: 20.0, // Adjust the font size as needed
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 249, 249,
-                                      250), // Change the text color if desired
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.0),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Enter your Phone Number',
+                                  ),
+                                  controller: phoneController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter your phone number';
+                                    }
+                                    // You can add more specific phone number validation here if needed
+                                    return null;
+                                  },
                                 ),
-                              )),
-                        ),
-                      ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.0),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Enter your Email',
+                                  ),
+                                  controller: emailController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter your email';
+                                    }
+                                    if (!EmailValidator.validate(value)) {
+                                      return 'Please enter a valid email address';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.0),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Enter your Password',
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter your password';
+                                    }
+                                    if (value.length < 6) {
+                                      return 'Password must be at least 6 characters';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.0),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            Colors.purple.withOpacity(0.9),
+                                        elevation: 0,
+                                        padding: EdgeInsets.all(20)),
+                                    onPressed: () {
+                                      if (_fromKey.currentState!.validate()) {
+                                        FirebaseAuth.instance
+                                            .createUserWithEmailAndPassword(
+                                            email: emailController.text,
+                                            password: passwordController.text)
+                                            .whenComplete(() =>
+                                            Get.to(() => LoginScreen()));
+                                      }
+
+                                    },
+                                    child: const Text(
+                                      "Register",
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        // Adjust the font size as needed
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 249, 249,
+                                            250), // Change the text color if desired
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          const Column(
+                            children: [
+                              Text("OR"),
+                              Text("Already Have an Account?")
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            Colors.purple.withOpacity(0.5),
+                                        elevation: 0,
+                                        padding: EdgeInsets.all(20)),
+                                    onPressed: () =>
+                                        Get.to(() => LoginScreen()),
+                                    child: const Text(
+                                      "Login",
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        // Adjust the font size as needed
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 249, 249,
+                                            250), // Change the text color if desired
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

@@ -35,6 +35,9 @@ class _HomePageState extends State<HomePage> {
   TextEditingController ageController = TextEditingController();
   TextEditingController bmiController = TextEditingController();
 
+  final GlobalKey<FormState> _fromKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,329 +79,359 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 0.0),
-                        child: Row(
-                          children: [
-                            Text("Name"),
-                          ],
-                        ),
-                      ),
-                      TextField(
-                        //scrollController:FixedExtentScrollController.,
-                        controller: nameController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: '',
-                          contentPadding: EdgeInsets.all(5.0),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 0.0),
-                        child: Row(
-                          children: [
-                            Text("Address"),
-                          ],
-                        ),
-                      ),
-                      TextField(
-                        //scrollController:FixedExtentScrollController.,
-                        controller: addressController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: '',
-                          contentPadding: EdgeInsets.all(5.0),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 0.0),
-                        child: Row(
-                          children: [
-                            Text("Date Of Birth"),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: TextField(
-                          onTap: _showDatePicker,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            hintText: (dateTime1),
-                            contentPadding: const EdgeInsets.all(5.0),
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 0.0),
-                        child: Row(
-                          children: [
-                            Text("Gender"),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          const Text("Male"),
-                          Radio(
-                              value: "Male",
-                              groupValue: gender,
-                              onChanged: (value) {
-                                setState(() {
-                                  gender = value!;
-                                }); //selected value
-                              }),
-                          const Text("Female"),
-                          Radio(
-                              value: "Female",
-                              groupValue: gender,
-                              onChanged: (value) {
-                                setState(() {
-                                  gender = value!;
-                                }); //selected value
-                              })
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 17.0),
-                      child: Column(
-                        children: [
-                          const Text(
-                            "Weight (KG)",
-                            style: kHeightAndWeightTextStyles,
-                          ),
-                          Text(
-                            "$weight",
-                            style: const TextStyle(
-                              fontSize: 30,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Column(
-                                children: [
-                                  FloatingActionButton(
-                                    child: const Icon(
-                                      Icons.add_circle_outline,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (weight < 300) {
-                                          weight++;
-                                          bmi = calculateBmi(
-                                              height: height, weight: weight);
-                                        }
-                                      });
-                                    },
-                                    shape: BeveledRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 180, 25, 241),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Column(
-                                children: [
-                                  FloatingActionButton(
-                                    child: const Icon(
-                                      Icons.remove_circle_outline,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (weight > 5) {
-                                          weight--;
-                                          bmi = calculateBmi(
-                                              height: height, weight: weight);
-                                        }
-                                      });
-                                    },
-                                    shape: BeveledRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 248, 3, 248),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 17.0),
-                      child: Column(
-                        children: [
-                          const Text(
-                            "Height (CM)",
-                            style: kHeightAndWeightTextStyles,
-                          ),
-                          Text(
-                            "$height",
-                            style: const TextStyle(
-                              fontSize: 30,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Column(
-                                children: [
-                                  FloatingActionButton(
-                                    child: const Icon(
-                                      Icons.add_circle_outline,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (height < 250) {
-                                          height++;
-                                          bmi = calculateBmi(
-                                              height: height, weight: weight);
-                                        }
-                                      });
-                                    },
-                                    shape: BeveledRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 180, 25, 241),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Column(
-                                children: [
-                                  FloatingActionButton(
-                                    child: const Icon(
-                                      Icons.remove_circle_outline,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        if (height > 100) {
-                                          height--;
-                                          bmi = calculateBmi(
-                                              height: height, weight: weight);
-                                        }
-                                      });
-                                    },
-                                    shape: BeveledRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 248, 3, 248),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      child: const Text(
-                        "Submit",
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 159, 34, 231),
-                          elevation: 0,
-                          padding: EdgeInsets.all(20)),
-                      onPressed: () {
-                        printData();
-                        setState(() {
-                          name = nameController.text;
-                          address = addressController.text;
-                          myAge;
-                          bmi = calculateBmi(height: height, weight: weight);
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              Card(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              Form(
+                key: _fromKey,
+                child: Column(
                   children: [
-                    Column(
-                      children: [
-                        const Icon(Icons.add_reaction_outlined),
-                        const Text(
-                          "Name",
-                          style: kUserDetailsStyles,
-                        ),
-                        Text(name),
-                        const Icon(Icons.place_outlined),
-                        const Text(
-                          "ADDRESS",
-                          style: kUserDetailsStyles,
-                        ),
-                        Text(address),
-                        const Icon(Icons.airline_stops_sharp),
-                        const Text(
-                          "AGE",
-                          style: kUserDetailsStyles,
-                        ),
-                        Text(myAge),
-                        const Row(
+                    Card(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+                        child: Column(
                           children: [
-                            Icon(Icons.man),
-                            Icon(Icons.woman),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 0.0),
+                              child: Row(
+                                children: [
+                                  Text("Name"),
+                                ],
+                              ),
+                            ),
+                            TextFormField(
+                              controller: nameController,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: '',
+                                contentPadding: EdgeInsets.all(5.0),
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter your name';
+                                }
+                                return null;
+                              },
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 0.0),
+                              child: Row(
+                                children: [
+                                  Text("Address"),
+                                ],
+                              ),
+                            ),
+                            TextFormField(
+                              controller: addressController,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: '',
+                                contentPadding: EdgeInsets.all(5.0),
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter your address';
+                                }
+                                return null;
+                              },
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 0.0),
+                              child: Row(
+                                children: [
+                                  Text("Date Of Birth"),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: TextField(
+                                onTap: _showDatePicker,
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(),
+                                  hintText: (dateTime1),
+                                  contentPadding: const EdgeInsets.all(5.0),
+                                ),
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 0.0),
+                              child: Row(
+                                children: [
+                                  Text("Gender"),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                const Text("Male"),
+                                Radio(
+                                    value: "Male",
+                                    groupValue: gender,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        gender = value!;
+                                      }); //selected value
+                                    }),
+                                const Text("Female"),
+                                Radio(
+                                    value: "Female",
+                                    groupValue: gender,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        gender = value!;
+                                      }); //selected value
+                                    })
+                              ],
+                            ),
                           ],
                         ),
-                        const Text(
-                          "GENDER",
-                          style: kUserDetailsStyles,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 17.0),
+                            child: Column(
+                              children: [
+                                const Text(
+                                  "Weight (KG)",
+                                  style: kHeightAndWeightTextStyles,
+                                ),
+                                Text(
+                                  "$weight",
+                                  style: const TextStyle(
+                                    fontSize: 30,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        FloatingActionButton(
+                                          child: const Icon(
+                                            Icons.add_circle_outline,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (weight < 300) {
+                                                weight++;
+                                                bmi = calculateBmi(
+                                                    height: height,
+                                                    weight: weight);
+                                              }
+                                            });
+                                          },
+                                          shape: BeveledRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          backgroundColor: const Color.fromARGB(
+                                              255, 180, 25, 241),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        FloatingActionButton(
+                                          child: const Icon(
+                                            Icons.remove_circle_outline,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (weight > 5) {
+                                                weight--;
+                                                bmi = calculateBmi(
+                                                    height: height,
+                                                    weight: weight);
+                                              }
+                                            });
+                                          },
+                                          shape: BeveledRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          backgroundColor: const Color.fromARGB(
+                                              255, 248, 3, 248),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        Text(
-                          '$gender',
-                        ),
-                        const Icon(Icons.account_circle_outlined),
-                        const Text(
-                          "BMI",
-                          style: kUserDetailsStyles,
-                        ),
-                        Text(bmi.toStringAsFixed(2), style: kBmiValueStyles),
-                        Text(
-                          bmiResult(bmi),
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
+                        const Spacer(),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 17.0),
+                            child: Column(
+                              children: [
+                                const Text(
+                                  "Height (CM)",
+                                  style: kHeightAndWeightTextStyles,
+                                ),
+                                Text(
+                                  "$height",
+                                  style: const TextStyle(
+                                    fontSize: 30,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        FloatingActionButton(
+                                          child: const Icon(
+                                            Icons.add_circle_outline,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (height < 250) {
+                                                height++;
+                                                bmi = calculateBmi(
+                                                    height: height,
+                                                    weight: weight);
+                                              }
+                                            });
+                                          },
+                                          shape: BeveledRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          backgroundColor: const Color.fromARGB(
+                                              255, 180, 25, 241),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: [
+                                        FloatingActionButton(
+                                          child: const Icon(
+                                            Icons.remove_circle_outline,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (height > 100) {
+                                                height--;
+                                                bmi = calculateBmi(
+                                                    height: height,
+                                                    weight: weight);
+                                              }
+                                            });
+                                          },
+                                          shape: BeveledRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          backgroundColor: const Color.fromARGB(
+                                              255, 248, 3, 248),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            child: const Text(
+                              "Submit",
+                            ),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Color.fromARGB(255, 159, 34, 231),
+                                elevation: 0,
+                                padding: EdgeInsets.all(20)),
+                            onPressed: () {
+                              if (_fromKey.currentState!.validate()) {
+                                setState(() {
+                                  name = nameController.text;
+                                  address = addressController.text;
+                                  myAge;
+                                  bmi = calculateBmi(height: height, weight: weight);
+                                });
+                                printData();
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Card(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              const Icon(Icons.add_reaction_outlined),
+                              const Text(
+                                "Name",
+                                style: kUserDetailsStyles,
+                              ),
+                              Text(name),
+                              const Icon(Icons.place_outlined),
+                              const Text(
+                                "ADDRESS",
+                                style: kUserDetailsStyles,
+                              ),
+                              Text(address),
+                              const Icon(Icons.airline_stops_sharp),
+                              const Text(
+                                "AGE",
+                                style: kUserDetailsStyles,
+                              ),
+                              Text(myAge),
+                              const Row(
+                                children: [
+                                  Icon(Icons.man),
+                                  Icon(Icons.woman),
+                                ],
+                              ),
+                              const Text(
+                                "GENDER",
+                                style: kUserDetailsStyles,
+                              ),
+                              Text(
+                                '$gender',
+                              ),
+                              const Icon(Icons.account_circle_outlined),
+                              const Text(
+                                "BMI",
+                                style: kUserDetailsStyles,
+                              ),
+                              Text(bmi.toStringAsFixed(2),
+                                  style: kBmiValueStyles),
+                              Text(
+                                bmiResult(bmi),
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
