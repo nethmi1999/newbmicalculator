@@ -94,15 +94,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                             Color.fromARGB(255, 159, 34, 231),
                                         elevation: 0,
                                         padding: EdgeInsets.all(20)),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (_fromKey.currentState!.validate()) {
-                                        FirebaseAuth.instance
-                                            .signInWithEmailAndPassword(
-                                                email: emailController.text,
-                                                password:
-                                                    passwordController.text)
-                                            .whenComplete(
-                                                () => Get.to(() => HomePage()));
+                                        try {
+                                          await FirebaseAuth.instance.signInWithEmailAndPassword(
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                          );
+                                          Get.to(() => HomePage());
+                                        } catch (error) {
+                                          String errorMessage = "An error occurred during login.";
+                                          if (error is FirebaseAuthException) {
+                                            if (error.code == "user-not-found") {
+                                              errorMessage = "User not found. Please check your credentials.";
+                                            } else if (error.code == "wrong-password") {
+                                              errorMessage = "Invalid password. Please check your credentials.";
+                                            }
+                                          }
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text(errorMessage),
+                                            ),
+                                          );
+                                        }
                                       }
                                     },
                                     child: const Text(
