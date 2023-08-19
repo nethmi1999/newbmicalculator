@@ -77,7 +77,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     border: OutlineInputBorder(),
                                     labelText: 'Enter Your Name',
                                     prefixIcon: Icon(Icons.person),
-
                                   ),
                                   controller: nameController,
                                   validator: (value) {
@@ -185,8 +184,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       }
                                       print("Email: ${emailController.text}");
                                       print("Password: ${passwordController.text}");
-
-
                                     },
                                     child: const Text(
                                       "Register",
