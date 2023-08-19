@@ -180,11 +180,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         FirebaseAuth.instance
                                             .createUserWithEmailAndPassword(
                                             email: emailController.text,
-                                            password: passwordController.text)
-                                      .whenComplete(() => ()=>Get.to(()=>const LoginScreen()));
+                                            password: passwordController.text);
+                                        Get.to(()=>LoginScreen());
                                       }
-                                      print("Email: ${emailController.text}");
-                                      print("Password: ${passwordController.text}");
                                     },
                                     child: const Text(
                                       "Register",
