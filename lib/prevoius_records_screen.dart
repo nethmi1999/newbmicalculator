@@ -11,7 +11,7 @@ class MyRecords extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController _scrollController = ScrollController();
+    ScrollController scrollController = ScrollController();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -23,8 +23,8 @@ class MyRecords extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                      onPressed: ()=>Get.to(()=>HomePage()),
-                      icon: Icon(Icons.arrow_back_ios_sharp)),
+                      onPressed: ()=>Get.to(()=>const HomePage()),
+                      icon: const Icon(Icons.arrow_back_ios_sharp)),
                 ],
               ),
               const Image(
@@ -68,8 +68,8 @@ class MyRecords extends StatelessWidget {
                     final data = snapshot.data!.docs;
 
                     return Scrollbar(
-                      controller: _scrollController,
-                      isAlwaysShown: true,
+                      controller: scrollController,
+                      thumbVisibility: true,
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,

@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:newbmi/authentication/bmi_screen.dart';
 import 'package:newbmi/authentication/forget_password.dart';
 import 'package:newbmi/authentication/register.dart';
 import 'package:email_validator/email_validator.dart';
@@ -53,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Column(
                         children: [
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           TextFormField(
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
@@ -72,12 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
+                              border: const OutlineInputBorder(),
                               labelText: 'Enter your password',
-                              prefixIcon: Icon(Icons.fingerprint),
+                              prefixIcon: const Icon(Icons.fingerprint),
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -105,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              TextButton(onPressed: ()=>Get.to(()=>ForgetPassword()), child: Text("Forget Password?"))
+                              TextButton(onPressed: ()=>Get.to(()=>const ForgetPassword()), child: const Text("Forget Password?"))
                             ],
                           ),
                           Row(
@@ -114,9 +113,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
-                                            Color.fromARGB(255, 159, 34, 231),
+                                            const Color.fromARGB(255, 159, 34, 231),
                                         elevation: 0,
-                                        padding: EdgeInsets.all(20)),
+                                        padding: const EdgeInsets.all(20)),
                                     onPressed: () async {
                                       if (_fromKey.currentState!.validate()) {
                                         try {
@@ -124,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             email: emailController.text,
                                             password: passwordController.text,
                                           );
-                                          Get.to(() => HomePage());
+                                          Get.to(() => const HomePage());
                                         } catch (error) {
                                           String errorMessage = "An error occurred during login.";
                                           if (error is FirebaseAuthException) {
@@ -169,8 +168,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     backgroundColor:
                                         Colors.purple.withOpacity(0.9),
                                     elevation: 0,
-                                    padding: EdgeInsets.all(20)),
-                                onPressed: () => Get.to(() => RegisterScreen()),
+                                    padding: const EdgeInsets.all(20)),
+                                onPressed: () => Get.to(() => const RegisterScreen()),
                                 child: const Text(
                                   "Register",
                                   style: TextStyle(

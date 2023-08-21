@@ -23,7 +23,7 @@ class PageSwitcher extends StatelessWidget {
         } else if (snapshot.hasData) {
           return const HomePage();
         } else {
-          return LoginScreen();
+          return const LoginScreen();
         }
       },
     );

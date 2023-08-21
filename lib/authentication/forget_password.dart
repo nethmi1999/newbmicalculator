@@ -42,8 +42,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.0),
                         child: Row(
                           children: [
                             Text(
@@ -59,7 +59,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       ),
                       Column(
                         children: [
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           TextFormField(
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
@@ -78,16 +78,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           Row(
                             children: [
                               Expanded(
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
-                                        Color.fromARGB(255, 159, 34, 231),
+                                        const Color.fromARGB(255, 159, 34, 231),
                                         elevation: 0,
-                                        padding: EdgeInsets.all(20)),
+                                        padding: const EdgeInsets.all(20)),
                                     onPressed: () async {
                                       if (_fromKey.currentState!.validate()) {
                                         try {

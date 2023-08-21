@@ -54,9 +54,9 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 FirebaseAuth.instance
                     .signOut()
-                    .whenComplete(() => Get.to(() => LoginScreen()));
+                    .whenComplete(() => Get.to(() => const LoginScreen()));
               },
-              child: Text("LogOut"),
+              child: const Text("LogOut"),
             ),
           ]),
       body: Container(
@@ -216,9 +216,6 @@ class _HomePageState extends State<HomePage> {
                                     Column(
                                       children: [
                                         FloatingActionButton(
-                                          child: const Icon(
-                                            Icons.add_circle_outline,
-                                          ),
                                           onPressed: () {
                                             setState(() {
                                               if (weight < 300) {
@@ -235,6 +232,9 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           backgroundColor: const Color.fromARGB(
                                               255, 180, 25, 241),
+                                          child: const Icon(
+                                            Icons.add_circle_outline,
+                                          ),
                                         )
                                       ],
                                     ),
@@ -244,9 +244,6 @@ class _HomePageState extends State<HomePage> {
                                     Column(
                                       children: [
                                         FloatingActionButton(
-                                          child: const Icon(
-                                            Icons.remove_circle_outline,
-                                          ),
                                           onPressed: () {
                                             setState(() {
                                               if (weight > 5) {
@@ -263,6 +260,9 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           backgroundColor: const Color.fromARGB(
                                               255, 248, 3, 248),
+                                          child: const Icon(
+                                            Icons.remove_circle_outline,
+                                          ),
                                         )
                                       ],
                                     ),
@@ -294,9 +294,6 @@ class _HomePageState extends State<HomePage> {
                                     Column(
                                       children: [
                                         FloatingActionButton(
-                                          child: const Icon(
-                                            Icons.add_circle_outline,
-                                          ),
                                           onPressed: () {
                                             setState(() {
                                               if (height < 250) {
@@ -313,6 +310,9 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           backgroundColor: const Color.fromARGB(
                                               255, 180, 25, 241),
+                                          child: const Icon(
+                                            Icons.add_circle_outline,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -322,9 +322,6 @@ class _HomePageState extends State<HomePage> {
                                     Column(
                                       children: [
                                         FloatingActionButton(
-                                          child: const Icon(
-                                            Icons.remove_circle_outline,
-                                          ),
                                           onPressed: () {
                                             setState(() {
                                               if (height > 100) {
@@ -341,6 +338,9 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           backgroundColor: const Color.fromARGB(
                                               255, 248, 3, 248),
+                                          child: const Icon(
+                                            Icons.remove_circle_outline,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -357,14 +357,11 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            child: const Text(
-                              "Submit",
-                            ),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
-                                    Color.fromARGB(255, 159, 34, 231),
+                                    const Color.fromARGB(255, 159, 34, 231),
                                 elevation: 0,
-                                padding: EdgeInsets.all(20)),
+                                padding: const EdgeInsets.all(20)),
                             onPressed: () {
                               if (_fromKey.currentState!.validate()) {
                                 setState(() {
@@ -376,6 +373,9 @@ class _HomePageState extends State<HomePage> {
                                 printData();
                               }
                             },
+                            child: const Text(
+                              "Submit",
+                            ),
                           ),
                         ),
                       ],
@@ -444,16 +444,16 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 159, 34, 231),
+                          backgroundColor: const Color.fromARGB(255, 159, 34, 231),
                           elevation: 0,
-                          padding: EdgeInsets.all(20)),
+                          padding: const EdgeInsets.all(20)),
                       onPressed: clear,
                       child: const Text("Clear Text"),
                     ),
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -461,9 +461,9 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 159, 34, 231),
+                          backgroundColor: const Color.fromARGB(255, 159, 34, 231),
                           elevation: 0,
-                          padding: EdgeInsets.all(20)),
+                          padding: const EdgeInsets.all(20)),
                       onPressed: () {
                         final bmiData = BmiData(
                             name: name,
@@ -480,7 +480,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -488,10 +488,10 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 159, 34, 231),
+                          backgroundColor: const Color.fromARGB(255, 159, 34, 231),
                           elevation: 0,
-                          padding: EdgeInsets.all(20)),
-                      onPressed: () => Get.to(() => MyRecords()),
+                          padding: const EdgeInsets.all(20)),
+                      onPressed: () => Get.to(() => const MyRecords()),
                       child: const Text("My Previous Records"),
                     ),
                   ),

@@ -52,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ],
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Text(
                           'Register Now!',
@@ -68,7 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       key: _fromKey,
                       child: Column(
                         children: [
-                          SizedBox(height: 25.0),
+                          const SizedBox(height: 25.0),
                           Row(
                             children: [
                               Expanded(
@@ -92,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           Row(
                             children: [
                               Expanded(
@@ -115,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           Row(
                             children: [
                               Expanded(
@@ -140,7 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           Row(
                             children: [
                               Expanded(
@@ -165,7 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           Row(
                             children: [
                               Expanded(
@@ -174,14 +174,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         backgroundColor:
                                             Colors.purple.withOpacity(0.9),
                                         elevation: 0,
-                                        padding: EdgeInsets.all(20)),
+                                        padding: const EdgeInsets.all(20)),
                                     onPressed: () {
                                       if (_fromKey.currentState!.validate()) {
                                         FirebaseAuth.instance
                                             .createUserWithEmailAndPassword(
                                             email: emailController.text,
                                             password: passwordController.text);
-                                        Get.to(()=>LoginScreen());
+                                        Get.to(()=>const LoginScreen());
                                       }
                                     },
                                     child: const Text(
@@ -211,9 +211,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         backgroundColor:
                                             Colors.purple.withOpacity(0.5),
                                         elevation: 0,
-                                        padding: EdgeInsets.all(20)),
+                                        padding: const EdgeInsets.all(20)),
                                     onPressed: () =>
-                                        Get.to(() => LoginScreen()),
+                                        Get.to(() => const LoginScreen()),
                                     child: const Text(
                                       "Login",
                                       style: TextStyle(

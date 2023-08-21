@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class WelcomeScreen extends StatelessWidget {
-  WelcomeScreen({super.key});
+  const WelcomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,11 +15,13 @@ class WelcomeScreen extends StatelessWidget {
 
 class BackgroundImageWidget extends StatelessWidget {
   final GlobalKey<FormState> _fromKey = GlobalKey<FormState>();
+
+  BackgroundImageWidget({super.key});
   @override
 
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/welcome.jpg'),
           fit: BoxFit.cover, // Adjust this based on your needs
@@ -30,7 +32,7 @@ class BackgroundImageWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Row(
+             const Row(
               children: [
                 Text(
                   'Welcome!',
@@ -42,22 +44,22 @@ class BackgroundImageWidget extends StatelessWidget {
                 ),
               ],
             ),
-             SizedBox(height: 100.0),
+             const SizedBox(height: 100.0),
            Row(
                   children: [
                     Expanded(
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 126, 4, 163),
+                            backgroundColor: const Color.fromARGB(255, 126, 4, 163),
                             elevation: 0,
-                            padding: EdgeInsets.all(20)
+                            padding: const EdgeInsets.all(20)
                           ),
                           onPressed: () {
                             if (_fromKey.currentState!.validate()) {
                               _fromKey.currentState!.save();
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             "Sign Up",
                             style: TextStyle(
                               fontSize: 20.0, // Adjust the font size as needed
@@ -69,8 +71,8 @@ class BackgroundImageWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 15.0),
-                Row(
+                const SizedBox(height: 15.0),
+                const Row(
               children: [
                 Text(
                   'already you have account',
@@ -87,16 +89,16 @@ class BackgroundImageWidget extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 126, 4, 163),
+                            backgroundColor: const Color.fromARGB(255, 126, 4, 163),
                             elevation: 0,
-                            padding: EdgeInsets.all(20)
+                            padding: const EdgeInsets.all(20)
                           ),
                           onPressed: () {
                             if (_fromKey.currentState!.validate()) {
                               _fromKey.currentState!.save();
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             "Sign In",
                             style: TextStyle(
                               fontSize: 20.0, // Adjust the font size as needed
